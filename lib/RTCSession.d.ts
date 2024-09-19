@@ -1,17 +1,10 @@
 import {EventEmitter} from 'events'
+import { RTCPeerConnection } from '@roamhq/wrtc'
 
 import {IncomingRequest, IncomingResponse, OutgoingRequest} from './SIPMessage'
 import {NameAddrHeader} from './NameAddrHeader'
 import {URI} from './URI'
 import {causes, DTMF_TRANSPORT} from './Constants'
-
-interface RTCPeerConnectionDeprecated extends RTCPeerConnection {
-  /**
-   * @deprecated
-   * @see https://developer.mozilla.org/en-US/docs/Web/API/RTCPeerConnection/getRemoteStreams
-   */
-  getRemoteStreams(): MediaStream[];
-}
 
 export declare enum SessionDirection {
   INCOMING = 'incoming',
@@ -85,7 +78,7 @@ export interface Info extends EventEmitter {
 }
 
 export interface PeerConnectionEvent {
-  peerconnection: RTCPeerConnectionDeprecated;
+  peerconnection: RTCPeerConnection;
 }
 
 export interface ConnectingEvent {
@@ -255,7 +248,7 @@ export class RTCSession extends EventEmitter {
   set data(_data: any);
   get data(): any;
 
-  get connection(): RTCPeerConnectionDeprecated;
+  get connection(): RTCPeerConnection;
 
   get contact(): string;
 
